@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router';
+import { Provider } from 'react-redux';
+import store from 'redux/store';
 
 import Header from 'components/Header';
 import Courses from 'components/Courses';
@@ -46,7 +48,7 @@ const App = () => {
 	};
 
 	return (
-		<>
+		<Provider store={store}>
 			<Context.Provider
 				value={{
 					isLoggined,
@@ -96,7 +98,7 @@ const App = () => {
 					<Route path='*' element={<p>Something went wrong: 404!</p>} />
 				</Routes>
 			</Context.Provider>
-		</>
+		</Provider>
 	);
 };
 
