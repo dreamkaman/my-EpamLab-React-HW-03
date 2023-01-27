@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router';
-import { Provider } from 'react-redux';
-import store from 'redux/store';
 
 import Header from 'components/Header';
 import Courses from 'components/Courses';
@@ -48,57 +46,55 @@ const App = () => {
 	};
 
 	return (
-		<Provider store={store}>
-			<Context.Provider
-				value={{
-					isLoggined,
-					onClickHandle,
-					filter,
-					setFilter,
-					courses,
-					setCourses,
-					authors,
-					setAuthors,
-					setIsLoggined,
-				}}
-			>
-				<Header />
-				<Routes>
-					<Route path='/login' element={<Login />} />
-					<Route path='/registration' element={<Registration />} />
+		<Context.Provider
+			value={{
+				isLoggined,
+				onClickHandle,
+				filter,
+				setFilter,
+				courses,
+				setCourses,
+				authors,
+				setAuthors,
+				setIsLoggined,
+			}}
+		>
+			<Header />
+			<Routes>
+				<Route path='/login' element={<Login />} />
+				<Route path='/registration' element={<Registration />} />
 
-					<Route path='/' element={isLoggined ? <Courses /> : <Login />} />
+				<Route path='/' element={isLoggined ? <Courses /> : <Login />} />
 
-					<Route
-						path='/courses'
-						element={
-							<ProtectedRoute isLoggined={isLoggined}>
-								<Courses />
-							</ProtectedRoute>
-						}
-					/>
+				<Route
+					path='/courses'
+					element={
+						<ProtectedRoute isLoggined={isLoggined}>
+							<Courses />
+						</ProtectedRoute>
+					}
+				/>
 
-					<Route
-						path='/courses/add'
-						element={
-							<ProtectedRoute isLoggined={isLoggined}>
-								<CreateCourse />
-							</ProtectedRoute>
-						}
-					/>
-					<Route
-						path='/courses/:courseId'
-						element={
-							<ProtectedRoute isLoggined={isLoggined}>
-								<CourseInfo />
-							</ProtectedRoute>
-						}
-					/>
+				<Route
+					path='/courses/add'
+					element={
+						<ProtectedRoute isLoggined={isLoggined}>
+							<CreateCourse />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path='/courses/:courseId'
+					element={
+						<ProtectedRoute isLoggined={isLoggined}>
+							<CourseInfo />
+						</ProtectedRoute>
+					}
+				/>
 
-					<Route path='*' element={<p>Something went wrong: 404!</p>} />
-				</Routes>
-			</Context.Provider>
-		</Provider>
+				<Route path='*' element={<p>Something went wrong: 404!</p>} />
+			</Routes>
+		</Context.Provider>
 	);
 };
 

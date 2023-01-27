@@ -1,16 +1,10 @@
-import { configureStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 
-// import {createStore} from 'react-redux';
-
-// const composeEnhancers =
-// 	typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-// 		? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-// 				// Specify extension’s options like name, actionsDenylist, actionsCreators, serialize...
-// 		  })
-// 		: compose;
+import reducer from './reducers';
 
 export const store = configureStore({
-	reducer: {},
+	reducer,
+	devTools: process.env.NODE_ENV === 'development',
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
