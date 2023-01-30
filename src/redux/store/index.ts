@@ -4,7 +4,11 @@ import { useDispatch } from 'react-redux';
 // import { applyMiddleware } from '@reduxjs/toolkit';
 // import createSagaMiddleware from '@redux-saga/core';
 
-const rootReducer = combineReducers({});
+import { userReducer } from './user/reducer';
+
+const rootReducer = combineReducers({
+	user: userReducer,
+});
 
 console.log(rootReducer);
 
