@@ -1,5 +1,5 @@
 import { PayloadAction, createReducer } from '@reduxjs/toolkit';
-import { userLogin, userLogout } from './actionCreators';
+import { userLoginAction, userLogoutAction } from './actionCreators';
 
 const initialState = {
 	isAuth: false,
@@ -15,10 +15,10 @@ interface IUserLoginPayload {
 }
 
 export const userReducer = createReducer(initialState, {
-	[userLogin.type]: (state, action: PayloadAction<IUserLoginPayload>) => {
+	[userLoginAction.type]: (state, action: PayloadAction<IUserLoginPayload>) => {
 		return { ...state, isAuth: true, ...action.payload };
 	},
-	[userLogout.type]: () => {
+	[userLogoutAction.type]: () => {
 		return { ...initialState };
 	},
 });

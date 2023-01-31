@@ -1,14 +1,18 @@
-// import { takeEvery } from 'redux-saga/effects';
+import { takeEvery } from 'redux-saga/effects';
 // import { userLogin, userLogout } from '../user/actionCreators';
+import { USER_LOGIN } from '../user/actionTypes';
 
 export function* workerSaga() {
+	console.log("I'm worker!");
 	yield;
 }
 
 export function* watcherSaga() {
-	yield;
+	console.log("I'm watcher!");
+	yield takeEvery(USER_LOGIN, workerSaga);
 }
 
 export default function* rootSaga() {
-	yield;
+	console.log('Hello world from saga!');
+	yield watcherSaga();
 }
