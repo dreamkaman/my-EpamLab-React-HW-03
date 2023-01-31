@@ -1,20 +1,27 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
-// import { applyMiddleware } from '@reduxjs/toolkit';
-// import createSagaMiddleware from '@redux-saga/core';
+import createSagaMiddleware from '@redux-saga/core';
 
-const rootReducer = combineReducers({});
+import { userReducer } from './user/reducer';
+import rootSaga from './saga';
 
-console.log(rootReducer);
+const rootReducer = combineReducers({
+	user: userReducer,
+});
 
-// const sagaMiddleware = createSagaMiddleware();
+// console.log(rootReducer);
+
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
 	reducer: rootReducer,
-	// applyMiddleWare(sagaMiddleware(rootSaga)),
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware().concat(sagaMiddleware),
 	devTools: process.env.NODE_ENV === 'development',
 });
+
+sagaMiddleware.run(rootSaga);
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

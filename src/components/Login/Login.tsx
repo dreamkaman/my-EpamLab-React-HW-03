@@ -1,10 +1,12 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch } from 'redux/store';
 
 import Input from 'common/Input';
 import Button from 'common/Button';
 
 import { loginUser } from 'api/api';
+import { userLoginAction } from 'redux/store/user/actionCreators';
 
 import s from './Login.module.css';
 import { Context } from '../../Context';
@@ -12,6 +14,7 @@ import { Context } from '../../Context';
 const Login = () => {
 	const navigate = useNavigate();
 	const context = useContext(Context);
+	const dispatch = useAppDispatch();
 
 	const [emailValue, setEmailValue] = useState('');
 	const [passwordValue, setPasswordValue] = useState('');
@@ -32,6 +35,10 @@ const Login = () => {
 		e.preventDefault();
 
 		const reqUser = { email: emailValue, password: passwordValue };
+
+		///----------------
+		dispatch(userLoginAction());
+		///----------------
 
 		const response = await loginUser(reqUser);
 
