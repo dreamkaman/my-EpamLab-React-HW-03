@@ -1,8 +1,14 @@
-import { takeEvery } from 'redux-saga/effects';
-import { userLogin, userLogout } from '../user/actionCreators';
+// import { takeEvery } from 'redux-saga/effects';
+// import { userLogin, userLogout } from '../user/actionCreators';
 
-export function* workerSaga() {}
+export function* workerSaga() {
+	yield;
+}
 
-export function* watcherSaga() {}
+export function* watcherSaga() {
+	yield;
+}
 
-export default function* rootSaga() {}
+export default function* rootSaga() {
+	yield;
+}
