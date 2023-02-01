@@ -1,7 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { USER_LOGIN, USER_LOGOUT } from './actionTypes';
+import { SET_USER_DATA, USER_LOGIN, USER_LOGOUT } from './actionTypes';
 
-export const userLoginAction = createAction(USER_LOGIN);
+import { IReqUser } from 'components/Login/Login';
+
+export const userLoginAction = createAction<IReqUser, 'USER_LOGIN'>(USER_LOGIN);
 
 export const userLogoutAction = createAction(USER_LOGOUT);
+
+export const setUserDataAction = createAction(SET_USER_DATA);

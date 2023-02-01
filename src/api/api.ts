@@ -17,12 +17,15 @@ interface ILoginUserReq {
 	password: string;
 }
 
-interface ILoginUserRes {
+export interface IData {
 	successful: boolean;
-	result: string;
+	result: string; //token
 	user: ILoginUserReq;
+}
+
+interface ILoginUserRes {
 	status: number;
-	data: { result: string };
+	data: IData;
 }
 
 interface ILogoutUserRes {
