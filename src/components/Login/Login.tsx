@@ -11,6 +11,11 @@ import { userLoginAction } from 'redux/store/user/actionCreators';
 import s from './Login.module.css';
 import { Context } from '../../Context';
 
+export interface IReqUser {
+	email: string;
+	password: string;
+}
+
 const Login = () => {
 	const navigate = useNavigate();
 	const context = useContext(Context);
@@ -34,10 +39,10 @@ const Login = () => {
 	const onSubmitHandle: React.FormEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault();
 
-		const reqUser = { email: emailValue, password: passwordValue };
+		const reqUser: IReqUser = { email: emailValue, password: passwordValue };
 
 		///----------------
-		dispatch(userLoginAction());
+		dispatch(userLoginAction(reqUser));
 		///----------------
 
 		const response = await loginUser(reqUser);
