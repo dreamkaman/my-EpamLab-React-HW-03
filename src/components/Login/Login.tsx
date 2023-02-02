@@ -30,8 +30,6 @@ const Login = () => {
 
 	useEffect(() => {
 		if (isAuth) {
-			console.log('Ping!!');
-
 			localStorage.setItem('token', token);
 
 			context.setIsLoggined(true);

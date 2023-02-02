@@ -54,7 +54,8 @@ export const signUpUser: SignUpUserFn = async ({ name, email, password }) => {
 		});
 		return response;
 	} catch (error) {
-		console.log(error.message);
+		console.log(error);
+		throw error;
 	}
 };
 
@@ -67,7 +68,8 @@ export const loginUser: LoginUserFn = async ({ email, password }) => {
 
 		return response;
 	} catch (error) {
-		console.log(error.message);
+		console.log(error);
+		throw error;
 	}
 };
 
@@ -81,6 +83,7 @@ export const logOutUser: LogOutUserFn = async (token) => {
 
 		return response;
 	} catch (error) {
-		console.log(error.message);
+		console.log(error);
+		throw error;
 	}
 };

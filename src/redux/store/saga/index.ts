@@ -8,24 +8,34 @@ function* userLoginWorkerSaga(action: {
 	type: string;
 	payload: { email: string; password: string };
 }) {
-	const { payload } = action;
-	const { data } = yield call(loginUser, payload);
-	const { user } = data;
+	try {
+		const { payload } = action;
+		const res = yield call(loginUser, payload);
 
-	const userData = {
-		...user,
-		token: data.result.split(' ')[1],
-	};
+		const {
+			data: { user, result },
+		} = res;
 
-	yield put(setUserDataAction(userData));
+		const userData = {
+			...user,
+			token: result.split(' ')[1],
+		};
+
+		yield put(setUserDataAction(userData));
+	} catch (error) {
+		alert(error.message);
+	}
 }
 
 function* userLogOutWorkerSaga(action: { type: string; payload: string }) {
-	console.log(action);
+	try {
+		console.log(action);
 
-	const res = yield call(logOutUser, action.payload);
-
-	console.log('res', res);
+		yield call(logOutUser, action.payload);
+	} catch (error) {
+		console.log(error);
+		alert(error.message);
+	}
 }
 
 function* watcherSaga() {

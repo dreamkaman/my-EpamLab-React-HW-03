@@ -22,7 +22,6 @@ export const userReducer = createReducer(initialState, {
 		_state,
 		action: PayloadAction<IUserLoginPayload>
 	) => {
-		console.log('Reducer works!');
 		return { isAuth: true, ...action.payload };
 	},
 });
