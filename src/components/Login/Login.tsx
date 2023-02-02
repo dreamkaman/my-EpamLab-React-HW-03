@@ -1,15 +1,17 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'redux/store';
+import { useSelector } from 'react-redux';
 
 import Input from 'common/Input';
 import Button from 'common/Button';
 
-import { loginUser } from 'api/api';
+// import { loginUser } from 'api/api';
 import { userLoginAction } from 'redux/store/user/actionCreators';
 
 import s from './Login.module.css';
 import { Context } from '../../Context';
+import { getToken, getIsAuth } from 'redux/store/user/selectors';
 
 export interface IReqUser {
 	email: string;
@@ -20,9 +22,21 @@ const Login = () => {
 	const navigate = useNavigate();
 	const context = useContext(Context);
 	const dispatch = useAppDispatch();
+	const token = useSelector(getToken);
+	const isAuth = useSelector(getIsAuth);
 
 	const [emailValue, setEmailValue] = useState('');
 	const [passwordValue, setPasswordValue] = useState('');
+
+	useEffect(() => {
+		if (isAuth) {
+			localStorage.setItem('token', token);
+
+			context.setIsLoggined(true);
+
+			navigate('/courses');
+		}
+	}, [isAuth]);
 
 	const onChangeEmailHandle: React.ChangeEventHandler<HTMLInputElement> = (
 		e
@@ -44,18 +58,6 @@ const Login = () => {
 		///----------------
 		dispatch(userLoginAction(reqUser));
 		///----------------
-
-		const response = await loginUser(reqUser);
-
-		if (response?.status === 201) {
-			const token = response?.data?.result.split(' ')[1];
-
-			localStorage.setItem('token', token);
-
-			context.setIsLoggined(true);
-
-			navigate('/courses');
-		}
 	};
 
 	return (
