@@ -1,7 +1,8 @@
 import { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'redux/store';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
+import { useAppSelector } from 'redux/hooks';
 
 import Input from 'common/Input';
 import Button from 'common/Button';
@@ -22,8 +23,8 @@ const Login = () => {
 	const navigate = useNavigate();
 	const context = useContext(Context);
 	const dispatch = useAppDispatch();
-	const token = useSelector(getToken);
-	const isAuth = useSelector(getIsAuth);
+	const token = useAppSelector(getToken);
+	const isAuth = useAppSelector(getIsAuth);
 
 	const [emailValue, setEmailValue] = useState('');
 	const [passwordValue, setPasswordValue] = useState('');

@@ -1,6 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { SET_USER_DATA, USER_LOGIN, USER_LOGOUT } from './actionTypes';
+import {
+	SET_USER_DATA,
+	USER_LOGIN,
+	USER_LOGOUT,
+	CLEAR_USER_DATA,
+} from './actionTypes';
 
 import { IReqUser } from 'components/Login/Login';
 import { IUserLoginPayload } from './reducer';
@@ -13,3 +18,5 @@ export const setUserDataAction = createAction<
 	IUserLoginPayload,
 	'SET_USER_DATA'
 >(SET_USER_DATA);
+
+export const clearUserDataAction = createAction(CLEAR_USER_DATA);

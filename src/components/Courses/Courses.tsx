@@ -1,4 +1,5 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useAppDispatch } from 'redux/hooks';
 import { useNavigate } from 'react-router-dom';
 
 import CourseCard from './components/CourseCard/CourseCard';
@@ -10,10 +11,16 @@ import { convertAuthorsIdToNames } from 'helpers/authorsString';
 import { dateTransform } from 'helpers/dateGenerator';
 
 import s from './Courses.module.css';
+import { getAllCoursesAction } from 'redux/store/courses/actionCreators';
 
 const Courses = () => {
 	const context = useContext(Context);
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(getAllCoursesAction());
+	}, [dispatch]);
 
 	const onAddNewCourseClick = () => {
 		navigate('/courses/add');

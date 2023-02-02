@@ -4,10 +4,12 @@ import { useDispatch } from 'react-redux';
 import createSagaMiddleware from '@redux-saga/core';
 
 import { userReducer } from './user/reducer';
+import { coursesReducer } from './courses/reducer';
 import rootSaga from './saga';
 
 const rootReducer = combineReducers({
 	user: userReducer,
+	courses: coursesReducer,
 });
 
 // console.log(rootReducer);
