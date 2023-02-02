@@ -1,26 +1,38 @@
-import { takeEvery, call } from 'redux-saga/effects';
-import { loginUser } from 'api/api';
-import { USER_LOGIN } from '../user/actionTypes';
+import { takeEvery, call, put } from 'redux-saga/effects';
+import { loginUser, logOutUser } from 'api/api';
+import { USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
 
-// import { IData } from 'api/api';
+import { setUserDataAction } from '../user/actionCreators';
 
-export function* userLoginWorkerSaga(action: {
+function* userLoginWorkerSaga(action: {
 	type: string;
 	payload: { email: string; password: string };
 }) {
-	console.log("I'm worker!");
 	const { payload } = action;
 	const { data } = yield call(loginUser, payload);
+	const { user } = data;
 
-	console.log(data);
+	const userData = {
+		...user,
+		token: data.result.split(' ')[1],
+	};
+
+	yield put(setUserDataAction(userData));
 }
 
-export function* watcherSaga() {
-	console.log("I'm watcher!");
+function* userLogOutWorkerSaga(action: { type: string; payload: string }) {
+	console.log(action);
+
+	const res = yield call(logOutUser, action.payload);
+
+	console.log('res', res);
+}
+
+function* watcherSaga() {
 	yield takeEvery(USER_LOGIN, userLoginWorkerSaga);
+	yield takeEvery(USER_LOGOUT, userLogOutWorkerSaga);
 }
 
 export default function* rootSaga() {
-	console.log('Hello world from saga!');
 	yield watcherSaga();
 }
