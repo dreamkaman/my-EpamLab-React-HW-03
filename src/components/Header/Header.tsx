@@ -7,12 +7,13 @@ import LogOut from './components/LogOut/LogOut';
 import { Context } from 'Context';
 
 import s from './Header.module.css';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
+import { useAppSelector } from 'redux/hooks';
 import { getUserName } from 'redux/store/user/selectors';
 
 const Header = () => {
 	const context = useContext(Context);
-	const userName = useSelector(getUserName);
+	const userName = useAppSelector(getUserName);
 
 	return (
 		<header>

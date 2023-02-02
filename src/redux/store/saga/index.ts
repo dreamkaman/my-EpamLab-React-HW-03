@@ -1,8 +1,10 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
-import { loginUser, logOutUser } from 'api/api';
+import { getAllCourses, loginUser, logOutUser } from 'api/api';
 import { USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
 
-import { setUserDataAction } from '../user/actionCreators';
+import { clearUserDataAction, setUserDataAction } from '../user/actionCreators';
+import { GET_COURSES } from '../courses/actionTypes';
+import { setAllCoursesAction } from '../courses/actionCreators';
 
 function* userLoginWorkerSaga(action: {
 	type: string;
@@ -29,11 +31,25 @@ function* userLoginWorkerSaga(action: {
 
 function* userLogOutWorkerSaga(action: { type: string; payload: string }) {
 	try {
-		console.log(action);
-
-		yield call(logOutUser, action.payload);
+		const res = yield call(logOutUser, action.payload);
+		const { status } = res;
+		if (status === 200) {
+			yield put(clearUserDataAction());
+		}
 	} catch (error) {
-		console.log(error);
+		alert(error.message);
+	}
+}
+
+function* coursesWorkerSaga() {
+	try {
+		const res = yield call(getAllCourses);
+		const {
+			data: { result },
+		} = res;
+		yield put(setAllCoursesAction(result));
+		console.log(res);
+	} catch (error) {
 		alert(error.message);
 	}
 }
@@ -41,6 +57,7 @@ function* userLogOutWorkerSaga(action: { type: string; payload: string }) {
 function* watcherSaga() {
 	yield takeEvery(USER_LOGIN, userLoginWorkerSaga);
 	yield takeEvery(USER_LOGOUT, userLogOutWorkerSaga);
+	yield takeEvery(GET_COURSES, coursesWorkerSaga);
 }
 
 export default function* rootSaga() {

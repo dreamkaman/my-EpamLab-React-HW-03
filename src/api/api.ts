@@ -6,13 +6,13 @@ interface ISignUpUserReq {
 	password: string;
 }
 
-interface ISignUpUserRes {
+export interface ISignUpUserRes {
 	data: { successful: boolean; result: string };
 	status: number;
 	statusText: string;
 }
 
-interface ILoginUserReq {
+export interface ILoginUserReq {
 	email: string;
 	password: string;
 }
@@ -81,6 +81,16 @@ export const logOutUser: LogOutUserFn = async (token) => {
 			},
 		});
 
+		return response;
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
+};
+
+export const getAllCourses = async () => {
+	try {
+		const response = await instance.get('/courses/all');
 		return response;
 	} catch (error) {
 		console.log(error);

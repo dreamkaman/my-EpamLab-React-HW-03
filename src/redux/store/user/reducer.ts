@@ -1,5 +1,5 @@
 import { PayloadAction, createReducer } from '@reduxjs/toolkit';
-import { setUserDataAction, userLogoutAction } from './actionCreators';
+import { setUserDataAction, clearUserDataAction } from './actionCreators';
 
 const initialState = {
 	isAuth: false,
@@ -15,7 +15,7 @@ export interface IUserLoginPayload {
 }
 
 export const userReducer = createReducer(initialState, {
-	[userLogoutAction.type]: () => {
+	[clearUserDataAction.type]: () => {
 		return { ...initialState };
 	},
 	[setUserDataAction.type]: (
