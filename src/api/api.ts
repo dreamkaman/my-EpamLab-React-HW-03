@@ -97,3 +97,13 @@ export const getAllCourses = async () => {
 		throw error;
 	}
 };
+
+export const getAllAuthors = async () => {
+	try {
+		const response = await instance.get('/authors/all');
+		return response;
+	} catch (error) {
+		console.log(error);
+		throw error;
+	}
+};

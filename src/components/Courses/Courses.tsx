@@ -24,7 +24,7 @@ const Courses = () => {
 	useEffect(() => {
 		console.log('UseEffect works!');
 		dispatch(getAllCoursesAction());
-	}, []);
+	}, [dispatch]);
 
 	const onAddNewCourseClick = () => {
 		navigate('/courses/add');
