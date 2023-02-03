@@ -4,7 +4,10 @@ import { USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
 
 import { clearUserDataAction, setUserDataAction } from '../user/actionCreators';
 import { GET_COURSES } from '../courses/actionTypes';
-import { setAllCoursesAction } from '../courses/actionCreators';
+import {
+	clearAllCoursesAction,
+	setAllCoursesAction,
+} from '../courses/actionCreators';
 
 function* userLoginWorkerSaga(action: {
 	type: string;
@@ -35,6 +38,7 @@ function* userLogOutWorkerSaga(action: { type: string; payload: string }) {
 		const { status } = res;
 		if (status === 200) {
 			yield put(clearUserDataAction());
+			yield put(clearAllCoursesAction());
 		}
 	} catch (error) {
 		alert(error.message);
@@ -48,7 +52,6 @@ function* coursesWorkerSaga() {
 			data: { result },
 		} = res;
 		yield put(setAllCoursesAction(result));
-		console.log(res);
 	} catch (error) {
 		alert(error.message);
 	}

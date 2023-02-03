@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { useAppDispatch } from 'redux/hooks';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useNavigate } from 'react-router-dom';
 
 import CourseCard from './components/CourseCard/CourseCard';
@@ -10,17 +10,21 @@ import { Context } from 'Context';
 import { convertAuthorsIdToNames } from 'helpers/authorsString';
 import { dateTransform } from 'helpers/dateGenerator';
 
-import s from './Courses.module.css';
 import { getAllCoursesAction } from 'redux/store/courses/actionCreators';
+import { getAllCoursesSelector } from 'redux/store/courses/selectors';
+
+import s from './Courses.module.css';
 
 const Courses = () => {
 	const context = useContext(Context);
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
+	const courses = useAppSelector(getAllCoursesSelector);
 
 	useEffect(() => {
+		console.log('UseEffect works!');
 		dispatch(getAllCoursesAction());
-	}, [dispatch]);
+	}, []);
 
 	const onAddNewCourseClick = () => {
 		navigate('/courses/add');
@@ -33,7 +37,7 @@ const Courses = () => {
 				<Button btnText='Add new course' onClick={onAddNewCourseClick} />
 			</div>
 			<ul>
-				{context.courses.map((course) => {
+				{courses?.map((course) => {
 					return (
 						<CourseCard
 							id={course.id}
