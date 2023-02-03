@@ -1,10 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { IAuthor } from 'helpers/authorsString';
-import { setAllAuthors } from './actionCreators';
+import { setAllAuthorsAction } from './actionCreators';
 
 const initialState: IAuthor[] = [];
 export const authorsReducer = createReducer(initialState, {
-	[setAllAuthors.type]: (_state, action) => {
-		[...action.payload];
+	[setAllAuthorsAction.type]: (_state, action) => {
+		return [...action.payload];
 	},
 });

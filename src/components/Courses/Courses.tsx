@@ -14,6 +14,7 @@ import { getAllCoursesAction } from 'redux/store/courses/actionCreators';
 import { getAllCoursesSelector } from 'redux/store/courses/selectors';
 
 import s from './Courses.module.css';
+import { getAllAuthorsAction } from 'redux/store/authors/actionCreators';
 
 const Courses = () => {
 	const context = useContext(Context);
@@ -23,8 +24,15 @@ const Courses = () => {
 
 	useEffect(() => {
 		console.log('UseEffect works!');
+		// eslint-disable-next-line no-debugger
+		debugger;
 		dispatch(getAllCoursesAction());
-	}, [dispatch]);
+		dispatch(getAllAuthorsAction());
+
+		return () => {
+			console.log('I am unmounted!');
+		};
+	}, []);
 
 	const onAddNewCourseClick = () => {
 		navigate('/courses/add');

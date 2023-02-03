@@ -45,26 +45,26 @@ const App = () => {
 		}
 	};
 
+	const contextValue = {
+		isLoggined,
+		onClickHandle,
+		filter,
+		setFilter,
+		courses,
+		setCourses,
+		authors,
+		setAuthors,
+		setIsLoggined,
+	};
+
 	return (
-		<Context.Provider
-			value={{
-				isLoggined,
-				onClickHandle,
-				filter,
-				setFilter,
-				courses,
-				setCourses,
-				authors,
-				setAuthors,
-				setIsLoggined,
-			}}
-		>
+		<Context.Provider value={contextValue}>
 			<Header />
 			<Routes>
 				<Route path='/login' element={<Login />} />
 				<Route path='/registration' element={<Registration />} />
 
-				<Route path='/' element={isLoggined ? <Courses /> : <Login />} />
+				{/* <Route path='/' element={isLoggined ? <Courses /> : <Login />} /> */}
 
 				<Route
 					path='/courses'
