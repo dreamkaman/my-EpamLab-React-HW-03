@@ -1,10 +1,15 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
-import { getAllCourses, loginUser, logOutUser } from 'api/api';
+import { getAllAuthors, getAllCourses, loginUser, logOutUser } from 'api/api';
 import { USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
 
 import { clearUserDataAction, setUserDataAction } from '../user/actionCreators';
 import { GET_COURSES } from '../courses/actionTypes';
-import { setAllCoursesAction } from '../courses/actionCreators';
+import {
+	clearAllCoursesAction,
+	setAllCoursesAction,
+} from '../courses/actionCreators';
+import { GET_AUTHORS } from '../authors/actionTypes';
+import { setAllAuthorsAction } from '../authors/actionCreators';
 
 function* userLoginWorkerSaga(action: {
 	type: string;
@@ -35,6 +40,7 @@ function* userLogOutWorkerSaga(action: { type: string; payload: string }) {
 		const { status } = res;
 		if (status === 200) {
 			yield put(clearUserDataAction());
+			yield put(clearAllCoursesAction());
 		}
 	} catch (error) {
 		alert(error.message);
@@ -48,7 +54,21 @@ function* coursesWorkerSaga() {
 			data: { result },
 		} = res;
 		yield put(setAllCoursesAction(result));
+	} catch (error) {
+		alert(error.message);
+	}
+}
+
+function* authorsWorkerSaga() {
+	console.log('authorsWorkerSaga works!');
+	try {
+		const res = yield call(getAllAuthors);
+		const {
+			data: { result },
+		} = res;
 		console.log(res);
+
+		yield put(setAllAuthorsAction(result));
 	} catch (error) {
 		alert(error.message);
 	}
@@ -58,6 +78,7 @@ function* watcherSaga() {
 	yield takeEvery(USER_LOGIN, userLoginWorkerSaga);
 	yield takeEvery(USER_LOGOUT, userLogOutWorkerSaga);
 	yield takeEvery(GET_COURSES, coursesWorkerSaga);
+	yield takeEvery(GET_AUTHORS, authorsWorkerSaga);
 }
 
 export default function* rootSaga() {

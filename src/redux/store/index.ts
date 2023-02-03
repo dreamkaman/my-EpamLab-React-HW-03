@@ -5,11 +5,13 @@ import createSagaMiddleware from '@redux-saga/core';
 
 import { userReducer } from './user/reducer';
 import { coursesReducer } from './courses/reducer';
+import { authorsReducer } from './authors/reducer';
 import rootSaga from './saga';
 
 const rootReducer = combineReducers({
 	user: userReducer,
 	courses: coursesReducer,
+	authors: authorsReducer,
 });
 
 // console.log(rootReducer);
