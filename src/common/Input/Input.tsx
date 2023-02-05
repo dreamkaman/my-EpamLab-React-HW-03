@@ -15,7 +15,7 @@ interface IInputProps {
 const Input: FC<IInputProps> = ({
 	placeholder = '',
 	width = 300,
-	labelTxt = 'Label text',
+	labelTxt = '',
 	value = '',
 	type = 'text',
 	onChange,

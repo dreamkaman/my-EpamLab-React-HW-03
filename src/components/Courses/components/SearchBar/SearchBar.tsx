@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Input from 'common/Input';
 import Button from 'common/Button';
@@ -8,10 +8,14 @@ import s from './SearchBar.module.css';
 import { useAppSelector } from 'redux/hooks';
 import { getAllCoursesSelector } from 'redux/store/courses/selectors';
 
-const SearchBar = () => {
+const SearchBar = ({ filteredCourses, setFilteredCourses }) => {
 	const [filter, setFilter] = useState('');
 
 	const courses = useAppSelector(getAllCoursesSelector);
+
+	useEffect(() => {
+		setFilteredCourses(courses);
+	}, []);
 
 	const onChangeHandle = (e: React.FormEvent<HTMLInputElement>) => {
 		setFilter(e.currentTarget.value);
@@ -21,8 +25,9 @@ const SearchBar = () => {
 		e.preventDefault();
 
 		const filterInLowerCase = filter.toLowerCase();
+
 		if (filterInLowerCase) {
-			const foundCourses = courses.filter(
+			const foundCourses = filteredCourses.filter(
 				(course) =>
 					course.id.toLowerCase().includes(filterInLowerCase) ||
 					course.title.toLowerCase().includes(filterInLowerCase)
