@@ -1,10 +1,8 @@
-import { FC, useContext, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
 import { useAppSelector } from 'redux/hooks';
 
 import Button from 'common/Button';
-import { Context } from 'Context';
 
 import { getToken } from 'redux/store/user/selectors';
 import { useAppDispatch } from 'redux/hooks';
@@ -18,14 +16,12 @@ interface ILogoOutProps {
 
 const LogOut: FC<ILogoOutProps> = ({ userName = 'Anonymous' }) => {
 	const navigate = useNavigate();
-	const context = useContext(Context);
 	const dispatch = useAppDispatch();
 	const token = useAppSelector(getToken);
 
 	useEffect(() => {
 		if (!token) {
 			localStorage.setItem('token', '');
-			context.setIsLoggined(false);
 			navigate('/login');
 		}
 	}, [token]);

@@ -1,20 +1,21 @@
-import { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
-
-import { Context } from 'Context';
 
 import { durationTransform } from 'helpers/pipeDuration';
 import { dateTransform } from 'helpers/dateGenerator';
 import { convertAuthorsIdToNames } from 'helpers/authorsString';
 
 import s from './CourseInfo.module.css';
+import { useAppSelector } from 'redux/hooks';
+import { getAllCoursesSelector } from 'redux/store/courses/selectors';
+import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
 
 const CourseInfo = () => {
 	const { courseId } = useParams();
 
-	const context = useContext(Context);
+	const courses = useAppSelector(getAllCoursesSelector);
+	const authors = useAppSelector(getAllAuthorsSelector);
 
-	const course = context.courses.find((course) => course.id === courseId);
+	const course = courses?.find((course) => course.id === courseId);
 
 	return (
 		<section className={s.courseInfoBlock}>
@@ -39,7 +40,7 @@ const CourseInfo = () => {
 					</p>
 					<p className={s.authors}>
 						<span>Authors:</span>
-						{convertAuthorsIdToNames(course?.authors, context.authors)}
+						{convertAuthorsIdToNames(course?.authors, authors)}
 					</p>
 				</div>
 			</div>
