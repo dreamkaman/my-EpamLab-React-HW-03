@@ -9,67 +9,37 @@ import Login from 'components/Login';
 import CreateCourse from 'components/CreateCourse';
 import ProtectedRoute from 'common/ProtectedRoute';
 
-import { Context } from './Context';
-
-import * as db from 'helpers/mockedDataBase';
-
-import { TonClickHandle } from 'Context';
-
-const initialCoursesSet = db.mockedCoursesList;
-const authorsInitial = db.mockedAuthorsList;
+import { useAppSelector } from 'redux/hooks';
+import { getIsAuth } from 'redux/store/user/selectors';
 
 const App = () => {
-	const [isLoggined, setIsLoggined] = useState(false);
-	const [courses, setCourses] = useState(initialCoursesSet);
 	const [filter, setFilter] = useState('');
-	const [authors, setAuthors] = useState(authorsInitial);
+	const isAuth = useAppSelector(getIsAuth);
 
 	useEffect(() => {
-		const token = localStorage.getItem('token');
-
-		if (token) {
-			setIsLoggined(true);
-		}
+		// const token = localStorage.getItem('token');
 	}, []);
 
 	useEffect(() => {
-		if (!filter) {
-			setCourses(initialCoursesSet);
-		}
+		console.log(setFilter); ///////////////////////////////
+		// if (!filter) {
+		// 	setCourses(initialCoursesSet);
+		// }
 	}, [filter]);
 
-	const onClickHandle: TonClickHandle = (value) => {
-		setIsLoggined(value);
-		if (!value) {
-			localStorage.setItem('token', '');
-		}
-	};
-
-	const contextValue = {
-		isLoggined,
-		onClickHandle,
-		filter,
-		setFilter,
-		courses,
-		setCourses,
-		authors,
-		setAuthors,
-		setIsLoggined,
-	};
-
 	return (
-		<Context.Provider value={contextValue}>
+		<>
 			<Header />
 			<Routes>
 				<Route path='/login' element={<Login />} />
 				<Route path='/registration' element={<Registration />} />
 
-				{/* <Route path='/' element={isLoggined ? <Courses /> : <Login />} /> */}
+				<Route path='/' element={isAuth ? <Courses /> : <Login />} />
 
 				<Route
 					path='/courses'
 					element={
-						<ProtectedRoute isLoggined={isLoggined}>
+						<ProtectedRoute isLoggined={isAuth}>
 							<Courses />
 						</ProtectedRoute>
 					}
@@ -78,7 +48,7 @@ const App = () => {
 				<Route
 					path='/courses/add'
 					element={
-						<ProtectedRoute isLoggined={isLoggined}>
+						<ProtectedRoute isLoggined={isAuth}>
 							<CreateCourse />
 						</ProtectedRoute>
 					}
@@ -86,7 +56,7 @@ const App = () => {
 				<Route
 					path='/courses/:courseId'
 					element={
-						<ProtectedRoute isLoggined={isLoggined}>
+						<ProtectedRoute isLoggined={isAuth}>
 							<CourseInfo />
 						</ProtectedRoute>
 					}
@@ -94,7 +64,7 @@ const App = () => {
 
 				<Route path='*' element={<p>Something went wrong: 404!</p>} />
 			</Routes>
-		</Context.Provider>
+		</>
 	);
 };
 

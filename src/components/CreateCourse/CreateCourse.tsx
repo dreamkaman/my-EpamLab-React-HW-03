@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -6,12 +6,13 @@ import Button from 'common/Button';
 import Input from 'common/Input';
 import Title from 'common/Title';
 import SelectedAuthorsList from './components/SelectedAuthorsList';
-import { Context } from 'Context';
 
 import { durationTransform } from 'helpers/pipeDuration';
 import { IAuthor, getAuthorsIdArray } from 'helpers/authorsString';
 
 import s from './CreateCourse.module.css';
+import { useAppSelector } from 'redux/hooks';
+import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
 
 const CreateCourse = () => {
 	const [title, setTitle] = useState('');
@@ -20,7 +21,8 @@ const CreateCourse = () => {
 	const [description, setDescription] = useState('');
 	const [selectedAuthors, setSelectedAuthors] = useState<IAuthor[]>([]);
 
-	const context = useContext(Context);
+	const authors = useAppSelector(getAllAuthorsSelector);
+
 	const navigate = useNavigate();
 
 	const onChangeTitleHandle: React.ChangeEventHandler<HTMLInputElement> = (
@@ -42,7 +44,6 @@ const CreateCourse = () => {
 	};
 
 	const onCancelClick = () => {
-		context.setAuthors(() => [...context.authors, ...selectedAuthors]);
 		navigate('/courses');
 	};
 
@@ -64,19 +65,7 @@ const CreateCourse = () => {
 
 		const authors = getAuthorsIdArray(selectedAuthors);
 
-		context.setCourses((prev) => [
-			...prev,
-			{
-				id,
-				title,
-				description,
-				creationDate,
-				duration,
-				authors,
-			},
-		]);
-
-		context.setAuthors(() => [...context.authors, ...selectedAuthors]);
+		console.log(id, creationDate, authors);
 
 		setSelectedAuthors([]);
 		setTitle('');
@@ -87,24 +76,25 @@ const CreateCourse = () => {
 	const onCreateAuthorClickHandle = () => {
 		if (authorName && authorName.length > 1) {
 			const id = uuidV4();
-			context.setAuthors((prev) => [...prev, { id, name: authorName }]);
-			setAuthorName('');
+			console.log(id);
+
 			return;
 		}
 		alert('Please, enter correct author name');
 	};
 
 	const onAddAuthorClickHandle: React.MouseEventHandler<HTMLElement> = (e) => {
-		const selectedAuthor = context.authors.find(
+		const selectedAuthor = authors.find(
 			(author) => author.id === e.currentTarget.id
 		);
 
 		setSelectedAuthors((prev) => [selectedAuthor, ...prev]);
 
-		const restAuthors = context.authors.filter(
+		const restAuthors = authors.filter(
 			(author) => author.id !== e.currentTarget.id
 		);
-		context.setAuthors(() => restAuthors);
+
+		console.log(restAuthors);
 	};
 
 	const onDeleteAuthorClickHandle: React.MouseEventHandler<
@@ -118,7 +108,7 @@ const CreateCourse = () => {
 			const newState = prev.filter((author) => author.id !== deletedAuthorId);
 			return newState;
 		});
-		context.setAuthors((prev) => [...prev, { ...deletedAuthor }]);
+		console.log(deletedAuthor);
 	};
 
 	const onChangeDescriptionHandle: React.ChangeEventHandler<
@@ -185,9 +175,9 @@ const CreateCourse = () => {
 				<div className={s.rightSide}>
 					<div className={s.authorListBlock}>
 						<Title titleText='Authors' />
-						{!!context.authors.length && (
+						{!!authors.length && (
 							<ul className={s.authorsList}>
-								{context.authors.map((author) => {
+								{authors.map((author) => {
 									return (
 										<li key={author.id} className={s.authorListItem}>
 											{author.name}

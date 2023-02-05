@@ -1,20 +1,17 @@
-import { FC, useContext } from 'react';
+import { useState } from 'react';
 
 import Input from 'common/Input';
 import Button from 'common/Button';
-import { Context } from 'Context';
 
 import s from './SearchBar.module.css';
 
-import * as db from 'helpers/mockedDataBase';
+import { useAppSelector } from 'redux/hooks';
+import { getAllCoursesSelector } from 'redux/store/courses/selectors';
 
-interface ISearchBarProps {
-	value: string;
-	setFilter: (value: string) => void;
-}
+const SearchBar = () => {
+	const [filter, setFilter] = useState('');
 
-const SearchBar: FC<ISearchBarProps> = ({ value = '', setFilter }) => {
-	const context = useContext(Context);
+	const courses = useAppSelector(getAllCoursesSelector);
 
 	const onChangeHandle = (e: React.FormEvent<HTMLInputElement>) => {
 		setFilter(e.currentTarget.value);
@@ -22,15 +19,15 @@ const SearchBar: FC<ISearchBarProps> = ({ value = '', setFilter }) => {
 
 	const onSubmitHandle = (e: React.SyntheticEvent) => {
 		e.preventDefault();
-		context.setCourses(() => db.mockedCoursesList);
-		const filter = context.filter.toLowerCase();
-		if (filter) {
-			const foundCourses = context.courses.filter(
+
+		const filterInLowerCase = filter.toLowerCase();
+		if (filterInLowerCase) {
+			const foundCourses = courses.filter(
 				(course) =>
-					course.id.toLowerCase().includes(filter) ||
-					course.title.toLowerCase().includes(filter)
+					course.id.toLowerCase().includes(filterInLowerCase) ||
+					course.title.toLowerCase().includes(filterInLowerCase)
 			);
-			context.setCourses(() => foundCourses);
+			console.log(foundCourses);
 		}
 	};
 
@@ -41,7 +38,7 @@ const SearchBar: FC<ISearchBarProps> = ({ value = '', setFilter }) => {
 					name='searchText'
 					placeholder='Enter course name...'
 					onChange={onChangeHandle}
-					value={value}
+					value={filter}
 				/>
 				<Button btnText='Search' type='submit' />
 			</form>

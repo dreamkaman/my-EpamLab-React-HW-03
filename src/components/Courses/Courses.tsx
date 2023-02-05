@@ -1,11 +1,10 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useNavigate } from 'react-router-dom';
 
 import CourseCard from './components/CourseCard/CourseCard';
 import Button from 'common/Button';
 import SearchBar from './components/SearchBar';
-import { Context } from 'Context';
 
 import { convertAuthorsIdToNames } from 'helpers/authorsString';
 import { dateTransform } from 'helpers/dateGenerator';
@@ -15,17 +14,17 @@ import { getAllCoursesSelector } from 'redux/store/courses/selectors';
 
 import s from './Courses.module.css';
 import { getAllAuthorsAction } from 'redux/store/authors/actionCreators';
+import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
 
 const Courses = () => {
-	const context = useContext(Context);
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 	const courses = useAppSelector(getAllCoursesSelector);
+	const authors = useAppSelector(getAllAuthorsSelector);
 
 	useEffect(() => {
 		console.log('UseEffect works!');
-		// eslint-disable-next-line no-debugger
-		debugger;
+
 		dispatch(getAllCoursesAction());
 		dispatch(getAllAuthorsAction());
 
@@ -41,7 +40,7 @@ const Courses = () => {
 	return (
 		<section className={s.coursesSection}>
 			<div className={s.wrapper}>
-				<SearchBar value={context.filter} setFilter={context.setFilter} />
+				<SearchBar />
 				<Button btnText='Add new course' onClick={onAddNewCourseClick} />
 			</div>
 			<ul>
@@ -52,7 +51,7 @@ const Courses = () => {
 							key={course.id}
 							title={course.title}
 							description={course.description}
-							authors={convertAuthorsIdToNames(course.authors, context.authors)}
+							authors={convertAuthorsIdToNames(course.authors, authors)}
 							duration={course.duration}
 							creationDate={dateTransform(course.creationDate)}
 						/>
