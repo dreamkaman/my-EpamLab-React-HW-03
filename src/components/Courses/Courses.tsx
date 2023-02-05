@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,6 +22,8 @@ const Courses = () => {
 	const courses = useAppSelector(getAllCoursesSelector);
 	const authors = useAppSelector(getAllAuthorsSelector);
 
+	const [filteredCourses, setFilteredCourses] = useState([]);
+
 	useEffect(() => {
 		console.log('UseEffect works!');
 
@@ -38,27 +40,33 @@ const Courses = () => {
 	};
 
 	return (
-		<section className={s.coursesSection}>
-			<div className={s.wrapper}>
-				<SearchBar />
-				<Button btnText='Add new course' onClick={onAddNewCourseClick} />
-			</div>
-			<ul>
-				{courses?.map((course) => {
-					return (
-						<CourseCard
-							id={course.id}
-							key={course.id}
-							title={course.title}
-							description={course.description}
-							authors={convertAuthorsIdToNames(course.authors, authors)}
-							duration={course.duration}
-							creationDate={dateTransform(course.creationDate)}
-						/>
-					);
-				})}
-			</ul>
-		</section>
+		!!courses.length &&
+		!!authors.length && (
+			<section className={s.coursesSection}>
+				<div className={s.wrapper}>
+					<SearchBar
+						filteredCourses={filteredCourses}
+						setFilteredCourses={setFilteredCourses}
+					/>
+					<Button btnText='Add new course' onClick={onAddNewCourseClick} />
+				</div>
+				<ul>
+					{courses?.map((course) => {
+						return (
+							<CourseCard
+								id={course.id}
+								key={course.id}
+								title={course.title}
+								description={course.description}
+								authors={convertAuthorsIdToNames(course.authors, authors)}
+								duration={course.duration}
+								creationDate={dateTransform(course.creationDate)}
+							/>
+						);
+					})}
+				</ul>
+			</section>
+		)
 	);
 };
 
