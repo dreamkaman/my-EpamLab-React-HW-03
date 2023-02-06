@@ -12,9 +12,10 @@ import { dateTransform } from 'helpers/dateGenerator';
 import { getAllCoursesAction } from 'redux/store/courses/actionCreators';
 import { getAllCoursesSelector } from 'redux/store/courses/selectors';
 
-import s from './Courses.module.css';
 import { getAllAuthorsAction } from 'redux/store/authors/actionCreators';
 import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
+
+import s from './Courses.module.css';
 
 const Courses = () => {
 	const navigate = useNavigate();
@@ -51,7 +52,7 @@ const Courses = () => {
 					<Button btnText='Add new course' onClick={onAddNewCourseClick} />
 				</div>
 				<ul>
-					{courses?.map((course) => {
+					{filteredCourses?.map((course) => {
 						return (
 							<CourseCard
 								id={course.id}
