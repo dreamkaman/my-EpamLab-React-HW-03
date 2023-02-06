@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { Route, Routes } from 'react-router';
+import { Route, Routes, Navigate } from 'react-router';
 
 import Header from 'components/Header';
 import Courses from 'components/Courses';
@@ -10,22 +9,10 @@ import CreateCourse from 'components/CreateCourse';
 import ProtectedRoute from 'common/ProtectedRoute';
 
 import { useAppSelector } from 'redux/hooks';
-import { getIsAuth } from 'redux/store/user/selectors';
+import { getIsAuthSelector } from 'redux/store/user/selectors';
 
 const App = () => {
-	const [filter, setFilter] = useState('');
-	const isAuth = useAppSelector(getIsAuth);
-
-	useEffect(() => {
-		// const token = localStorage.getItem('token');
-	}, []);
-
-	useEffect(() => {
-		console.log(setFilter); ///////////////////////////////
-		// if (!filter) {
-		// 	setCourses(initialCoursesSet);
-		// }
-	}, [filter]);
+	const isAuth = useAppSelector(getIsAuthSelector);
 
 	return (
 		<>
@@ -33,8 +20,12 @@ const App = () => {
 			<Routes>
 				<Route path='/login' element={<Login />} />
 				<Route path='/registration' element={<Registration />} />
-
-				<Route path='/' element={isAuth ? <Courses /> : <Login />} />
+				<Route
+					path='/'
+					element={
+						isAuth ? <Navigate to={'/courses'} /> : <Navigate to={'/login'} />
+					}
+				/>
 
 				<Route
 					path='/courses'

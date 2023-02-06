@@ -4,7 +4,7 @@ import { useAppSelector } from 'redux/hooks';
 
 import Button from 'common/Button';
 
-import { getToken } from 'redux/store/user/selectors';
+import { getTokenSelector } from 'redux/store/user/selectors';
 import { useAppDispatch } from 'redux/hooks';
 import { userLogoutAction } from 'redux/store/user/actionCreators';
 
@@ -17,7 +17,7 @@ interface ILogoOutProps {
 const LogOut: FC<ILogoOutProps> = ({ userName = 'Anonymous' }) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
-	const token = useAppSelector(getToken);
+	const token = useAppSelector(getTokenSelector);
 
 	useEffect(() => {
 		if (!token) {

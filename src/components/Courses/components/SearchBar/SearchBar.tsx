@@ -33,6 +33,9 @@ const SearchBar = ({ filteredCourses, setFilteredCourses }) => {
 					course.title.toLowerCase().includes(filterInLowerCase)
 			);
 			console.log(foundCourses);
+			setFilteredCourses(foundCourses);
+		} else {
+			setFilteredCourses(courses);
 		}
 	};
 

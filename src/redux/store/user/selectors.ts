@@ -1,3 +1,3 @@
-export const getIsAuth = (state) => state.user.isAuth;
-export const getToken = (state) => state.user.token;
-export const getUserName = (state) => state.user.name;
+export const getIsAuthSelector = (state) => state.user.isAuth;
+export const getTokenSelector = (state) => state.user.token;
+export const getUserNameSelector = (state) => state.user.name;

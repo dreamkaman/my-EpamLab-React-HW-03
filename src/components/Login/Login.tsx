@@ -8,7 +8,10 @@ import Button from 'common/Button';
 
 import { userLoginAction } from 'redux/store/user/actionCreators';
 
-import { getToken, getIsAuth } from 'redux/store/user/selectors';
+import {
+	getTokenSelector,
+	getIsAuthSelector,
+} from 'redux/store/user/selectors';
 
 import s from './Login.module.css';
 
@@ -20,8 +23,8 @@ export interface IReqUser {
 const Login = () => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
-	const token = useAppSelector(getToken);
-	const isAuth = useAppSelector(getIsAuth);
+	const token = useAppSelector(getTokenSelector);
+	const isAuth = useAppSelector(getIsAuthSelector);
 
 	const [emailValue, setEmailValue] = useState('');
 	const [passwordValue, setPasswordValue] = useState('');
