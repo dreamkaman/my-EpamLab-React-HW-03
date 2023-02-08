@@ -1,4 +1,4 @@
-import { takeEvery, call, put } from 'redux-saga/effects';
+import { takeEvery, call, put, all } from 'redux-saga/effects';
 import { getAllAuthors, getAllCourses, loginUser, logOutUser } from 'api/api';
 import { USER_LOGIN, USER_LOGOUT } from '../user/actionTypes';
 
@@ -74,13 +74,27 @@ function* authorsWorkerSaga() {
 	}
 }
 
-function* watcherSaga() {
+function* userLoginWatcherSaga() {
 	yield takeEvery(USER_LOGIN, userLoginWorkerSaga);
+}
+
+function* userLogoutWatcherSaga() {
 	yield takeEvery(USER_LOGOUT, userLogOutWorkerSaga);
+}
+
+function* getCoursesWatcherSaga() {
 	yield takeEvery(GET_COURSES, coursesWorkerSaga);
+}
+
+function* getAuthorsWatcherSaga() {
 	yield takeEvery(GET_AUTHORS, authorsWorkerSaga);
 }
 
 export default function* rootSaga() {
-	yield watcherSaga();
+	yield all([
+		call(userLoginWatcherSaga),
+		call(userLogoutWatcherSaga),
+		call(getCoursesWatcherSaga),
+		call(getAuthorsWatcherSaga),
+	]);
 }

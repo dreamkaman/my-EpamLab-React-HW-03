@@ -14,8 +14,6 @@ const rootReducer = combineReducers({
 	authors: authorsReducer,
 });
 
-// console.log(rootReducer);
-
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({

@@ -27,6 +27,8 @@ const Courses = () => {
 
 	useEffect(() => {
 		console.log('UseEffect works!');
+		console.log(courses);
+		console.log(authors);
 
 		dispatch(getAllCoursesAction());
 		dispatch(getAllAuthorsAction());
@@ -34,7 +36,7 @@ const Courses = () => {
 		return () => {
 			console.log('I am unmounted!');
 		};
-	}, []);
+	}, [dispatch]);
 
 	const onAddNewCourseClick = () => {
 		navigate('/courses/add');
