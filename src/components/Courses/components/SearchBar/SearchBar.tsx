@@ -20,6 +20,7 @@ const SearchBar = ({ filteredCourses, setFilteredCourses }) => {
 	useEffect(() => {
 		dispatch(getAllCoursesAction());
 		dispatch(getAllAuthorsAction());
+
 		return () => {
 			console.log('I unmount');
 		};
