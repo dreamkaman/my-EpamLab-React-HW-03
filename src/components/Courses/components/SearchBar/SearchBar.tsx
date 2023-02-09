@@ -18,15 +18,10 @@ const SearchBar = ({ filteredCourses, setFilteredCourses }) => {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		// eslint-disable-next-line no-debugger
-		debugger;
-
 		dispatch(getAllCoursesAction());
 		dispatch(getAllAuthorsAction());
 		return () => {
 			console.log('I unmount');
-			// eslint-disable-next-line no-debugger
-			debugger;
 		};
 	}, []);
 
