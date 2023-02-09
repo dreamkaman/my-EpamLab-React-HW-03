@@ -7,15 +7,33 @@ import s from './SearchBar.module.css';
 
 import { useAppSelector } from 'redux/hooks';
 import { getAllCoursesSelector } from 'redux/store/courses/selectors';
+import { useAppDispatch } from 'redux/store';
+import { getAllCoursesAction } from 'redux/store/courses/actionCreators';
+import { getAllAuthorsAction } from 'redux/store/authors/actionCreators';
 
 const SearchBar = ({ filteredCourses, setFilteredCourses }) => {
 	const [filter, setFilter] = useState('');
 
 	const courses = useAppSelector(getAllCoursesSelector);
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		setFilteredCourses(courses);
+		// eslint-disable-next-line no-debugger
+		debugger;
+
+		dispatch(getAllCoursesAction());
+		dispatch(getAllAuthorsAction());
+		return () => {
+			console.log('I unmount');
+			// eslint-disable-next-line no-debugger
+			debugger;
+		};
 	}, []);
+
+	useEffect(() => {
+		console.log('courses', courses);
+		setFilteredCourses(courses);
+	}, [courses]);
 
 	const onChangeHandle = (e: React.FormEvent<HTMLInputElement>) => {
 		setFilter(e.currentTarget.value);
