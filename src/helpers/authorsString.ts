@@ -12,13 +12,16 @@ type convertAuthorsIdToNamesFn = (
 	array2: IAuthor[]
 ) => string;
 
-export const getAuthorsName: GetAuthorsNameFn = (allAuthors) => {
+export const getAuthorsName: GetAuthorsNameFn = (allAuthors = []) => {
+	if (!allAuthors.length) return '';
+
 	const authorsName = allAuthors.map((author) => author.name);
 
 	return authorsName.join(', ');
 };
 
-export const getAuthorsIdArray: getAuthorsIdArrayFn = (allAuthors) => {
+export const getAuthorsIdArray: getAuthorsIdArrayFn = (allAuthors = []) => {
+	if (!allAuthors.length) return [];
 	const AuthorsIdArray = allAuthors.map((author) => author.id);
 
 	return AuthorsIdArray;
@@ -26,8 +29,10 @@ export const getAuthorsIdArray: getAuthorsIdArrayFn = (allAuthors) => {
 
 export const convertAuthorsIdToNames: convertAuthorsIdToNamesFn = (
 	authorsIdArray,
-	allAuthors
+	allAuthors = []
 ) => {
+	if (!allAuthors.length) return '';
+
 	const authorsName = authorsIdArray.map((authorId) => {
 		const foundAuthor = allAuthors.find((author) => author.id === authorId);
 
