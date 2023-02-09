@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate } from 'react-router';
+import { Route, Routes } from 'react-router';
 
 import Header from 'components/Header';
 import Courses from 'components/Courses';
@@ -10,6 +10,7 @@ import ProtectedRoute from 'common/ProtectedRoute';
 
 import { useAppSelector } from 'redux/hooks';
 import { getIsAuthSelector } from 'redux/store/user/selectors';
+import { Navigate } from 'react-router-dom';
 
 const App = () => {
 	const isAuth = useAppSelector(getIsAuthSelector);
