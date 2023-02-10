@@ -13,13 +13,17 @@ import { IAuthor, getAuthorsIdArray } from 'helpers/authorsString';
 import s from './CreateCourse.module.css';
 import { useAppSelector } from 'redux/hooks';
 import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
+import { useAppDispatch } from 'redux/store';
+import { addNewCourseAction } from 'redux/store/courses/actionCreators';
 
 const CreateCourse = () => {
-	const [title, setTitle] = useState('');
-	const [authorName, setAuthorName] = useState(''); //state for the new author name input
-	const [duration, setDuration] = useState(0);
-	const [description, setDescription] = useState('');
+	const [title, setTitle] = useState<string>('');
+	const [authorName, setAuthorName] = useState<string>(''); //state for the new author name input
+	const [duration, setDuration] = useState<number>(0);
+	const [description, setDescription] = useState<string>('');
 	const [selectedAuthors, setSelectedAuthors] = useState<IAuthor[]>([]);
+
+	const dispatch = useAppDispatch();
 
 	const authors = useAppSelector(getAllAuthorsSelector);
 
@@ -60,12 +64,23 @@ const CreateCourse = () => {
 			return;
 		}
 
-		const id = uuidV4();
+		const id: string = uuidV4();
 		const creationDate = new Date().toISOString();
 
 		const authors = getAuthorsIdArray(selectedAuthors);
 
 		console.log(id, creationDate, authors);
+
+		dispatch(
+			addNewCourseAction({
+				id,
+				title,
+				description,
+				creationDate,
+				duration,
+				authors,
+			})
+		);
 
 		setSelectedAuthors([]);
 		setTitle('');
