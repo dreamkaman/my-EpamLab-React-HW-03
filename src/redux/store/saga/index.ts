@@ -64,13 +64,11 @@ function* coursesWorkerSaga() {
 }
 
 function* authorsWorkerSaga() {
-	console.log('authorsWorkerSaga works!');
 	try {
 		const res = yield call(getAllAuthors);
 		const {
 			data: { result },
 		} = res;
-		console.log(res);
 
 		yield put(setAllAuthorsAction(result));
 	} catch (error) {
