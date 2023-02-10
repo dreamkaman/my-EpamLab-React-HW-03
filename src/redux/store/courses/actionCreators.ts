@@ -5,6 +5,7 @@ import {
 	CLEAR_COURSES,
 	ADD_COURSE,
 	DELETE_COURSE,
+	UPDATE_COURSE,
 } from './actionTypes';
 
 export const getAllCoursesAction = createAction(GET_COURSES);
@@ -12,3 +13,4 @@ export const setAllCoursesAction = createAction(SET_COURSES);
 export const clearAllCoursesAction = createAction(CLEAR_COURSES);
 export const addNewCourseAction = createAction(ADD_COURSE);
 export const deleteCourseAction = createAction(DELETE_COURSE);
+export const updateCourseAction = createAction(UPDATE_COURSE);
