@@ -4,6 +4,7 @@ import {
 	clearAllCoursesAction,
 	addNewCourseAction,
 	deleteCourseAction,
+	updateCourseAction,
 } from './actionCreators';
 
 import { ICourse } from 'Context';
@@ -26,5 +27,8 @@ export const coursesReducer = createReducer(initialReducer, {
 		);
 
 		return [...filteredCourses];
+	},
+	[updateCourseAction.type]: (state, action) => {
+		return [...state, ...action.payload];
 	},
 });

@@ -20,14 +20,9 @@ const SearchBar = ({ filteredCourses, setFilteredCourses }) => {
 	useEffect(() => {
 		dispatch(getAllCoursesAction());
 		dispatch(getAllAuthorsAction());
-
-		return () => {
-			console.log('I unmount');
-		};
 	}, []);
 
 	useEffect(() => {
-		console.log('courses', courses);
 		setFilteredCourses(courses);
 	}, [courses]);
 
@@ -46,7 +41,6 @@ const SearchBar = ({ filteredCourses, setFilteredCourses }) => {
 					course.id.toLowerCase().includes(filterInLowerCase) ||
 					course.title.toLowerCase().includes(filterInLowerCase)
 			);
-			console.log(foundCourses);
 			setFilteredCourses(foundCourses);
 		} else {
 			setFilteredCourses(courses);
