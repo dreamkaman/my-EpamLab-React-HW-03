@@ -15,6 +15,6 @@ export const authorsReducer = createReducer(initialState, {
 		return [];
 	},
 	[addNewAuthorAction.type]: (state, action) => {
-		return [...state, ...action.payload];
+		return [...state, action.payload];
 	},
 });

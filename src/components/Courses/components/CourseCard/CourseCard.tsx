@@ -7,6 +7,8 @@ import s from './CourseCard.module.css';
 
 import { ICourseBase } from 'Context';
 import { durationTransform } from 'helpers/pipeDuration';
+import { useAppDispatch } from 'redux/store';
+import { deleteCourseAction } from 'redux/store/courses/actionCreators';
 
 interface ICourseCardProps extends ICourseBase {
 	authors: string;
@@ -21,9 +23,15 @@ const CourseCard: FC<ICourseCardProps> = ({
 	creationDate,
 }) => {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 
 	const onShowCourseClickHandle = () => {
 		navigate(`/courses/${id}`);
+	};
+
+	const onDeleteCourse = (e) => {
+		const id = e.target.id;
+		dispatch(deleteCourseAction(id));
 	};
 
 	return (
@@ -52,7 +60,7 @@ const CourseCard: FC<ICourseCardProps> = ({
 						onClick={onShowCourseClickHandle}
 					/>
 					<Button id={id} image='pen' btnText='' />
-					<Button id={id} image='trash' btnText='' />
+					<Button id={id} image='trash' btnText='' onClick={onDeleteCourse} />
 				</div>
 			</div>
 		</li>

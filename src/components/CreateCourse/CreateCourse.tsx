@@ -15,6 +15,7 @@ import { useAppSelector } from 'redux/hooks';
 import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
 import { useAppDispatch } from 'redux/store';
 import { addNewCourseAction } from 'redux/store/courses/actionCreators';
+import { addNewAuthorAction } from 'redux/store/authors/actionCreators';
 
 const CreateCourse = () => {
 	const [title, setTitle] = useState<string>('');
@@ -91,7 +92,10 @@ const CreateCourse = () => {
 	const onCreateAuthorClickHandle = () => {
 		if (authorName && authorName.length > 1) {
 			const id = uuidV4();
-			console.log(id);
+
+			dispatch(addNewAuthorAction({ id, name: authorName }));
+
+			setAuthorName('');
 
 			return;
 		}
