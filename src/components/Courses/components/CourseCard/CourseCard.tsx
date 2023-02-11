@@ -45,11 +45,15 @@ const CourseCard: FC<ICourseCardProps> = ({
 					<span>Created: </span>
 					{creationDate}
 				</p>
-				<Button
-					id={id}
-					btnText='Show course'
-					onClick={onShowCourseClickHandle}
-				/>
+				<div className={s.buttonsWrapper}>
+					<Button
+						id={id}
+						btnText='Show course'
+						onClick={onShowCourseClickHandle}
+					/>
+					<Button id={id} image='pen' btnText='' />
+					<Button id={id} image='trash' btnText='' />
+				</div>
 			</div>
 		</li>
 	);
