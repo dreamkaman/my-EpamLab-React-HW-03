@@ -14,7 +14,7 @@ interface IButtonProps {
 
 const Button: FC<IButtonProps> = ({
 	id = '#',
-	btnText,
+	btnText = '',
 	onClick,
 	type = 'button',
 	image = '',
