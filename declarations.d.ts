@@ -1,2 +1,2 @@
 declare module '*.module.css';
-declare module 'images/*.png';
+declare module 'images/*';

@@ -76,6 +76,7 @@ const Login = () => {
 				onChange={onChangePasswordHandle}
 			/>
 			<Button btnText='Login' type='submit' />
+
 			<p className={s.warning}>
 				If you have an account you can{' '}
 				<Link to='/registration' className={s.registrationLink}>
