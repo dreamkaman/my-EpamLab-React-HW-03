@@ -19,7 +19,7 @@ export const coursesReducer = createReducer(initialReducer, {
 		return initialReducer;
 	},
 	[addNewCourseAction.type]: (state, action) => {
-		return [...state, ...action.payload];
+		return [...state, action.payload];
 	},
 	[deleteCourseAction.type]: (state, action) => {
 		const filteredCourses = state.filter(

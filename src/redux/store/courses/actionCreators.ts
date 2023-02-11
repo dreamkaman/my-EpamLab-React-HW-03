@@ -7,10 +7,13 @@ import {
 	DELETE_COURSE,
 	UPDATE_COURSE,
 } from './actionTypes';
+import { ICourse } from 'Context';
 
 export const getAllCoursesAction = createAction(GET_COURSES);
 export const setAllCoursesAction = createAction(SET_COURSES);
 export const clearAllCoursesAction = createAction(CLEAR_COURSES);
-export const addNewCourseAction = createAction(ADD_COURSE);
+export const addNewCourseAction = createAction<ICourse, 'ADD_COURSE'>(
+	ADD_COURSE
+);
 export const deleteCourseAction = createAction(DELETE_COURSE);
 export const updateCourseAction = createAction(UPDATE_COURSE);

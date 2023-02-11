@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import sprite from 'images/svg/sprite.svg';
+
 import styles from './Button.module.css';
 
 interface IButtonProps {
@@ -7,6 +9,7 @@ interface IButtonProps {
 	btnText: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	type?: 'button' | 'submit';
+	image?: string;
 }
 
 const Button: FC<IButtonProps> = ({
@@ -14,10 +17,16 @@ const Button: FC<IButtonProps> = ({
 	btnText,
 	onClick,
 	type = 'button',
+	image = '',
 }) => {
 	return (
 		<button id={id} className={styles.btn} type={type} onClick={onClick}>
-			{btnText}
+			{!image && btnText}
+			{image && (
+				<svg className={styles.svg}>
+					<use href={sprite + `#${image}`}></use>
+				</svg>
+			)}
 		</button>
 	);
 };
