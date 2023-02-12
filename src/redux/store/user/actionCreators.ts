@@ -12,7 +12,7 @@ import { IUserLoginPayload } from './reducer';
 
 export const userLoginAction = createAction<IReqUser, 'USER_LOGIN'>(USER_LOGIN);
 
-export const userLogoutAction = createAction(USER_LOGOUT);
+export const userLogoutAction = createAction<string>(USER_LOGOUT);
 
 export const setUserDataAction = createAction<
 	IUserLoginPayload,

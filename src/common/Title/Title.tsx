@@ -1,10 +1,8 @@
 import { FC } from 'react';
 
-import s from './Title.module.css';
+import { ITitleProps } from 'tsTypes';
 
-interface ITitleProps {
-	titleText: string;
-}
+import s from './Title.module.css';
 
 const Title: FC<ITitleProps> = ({ titleText }) => (
 	<h3 className={s.title}>{titleText}</h3>

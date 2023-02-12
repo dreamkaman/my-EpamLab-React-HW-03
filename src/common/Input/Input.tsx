@@ -1,16 +1,8 @@
-import { ChangeEvent, FC } from 'react';
+import { FC } from 'react';
+
+import { IInputProps } from 'tsTypes';
 
 import s from './Input.module.css';
-
-interface IInputProps {
-	name?: string;
-	placeholder?: string;
-	width?: number;
-	labelTxt?: string;
-	value?: string;
-	type?: 'text' | 'password';
-	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
 
 const Input: FC<IInputProps> = ({
 	placeholder = '',

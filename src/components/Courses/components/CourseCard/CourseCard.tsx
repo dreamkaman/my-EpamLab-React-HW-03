@@ -3,16 +3,12 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from 'common/Button';
 
-import s from './CourseCard.module.css';
-
-import { ICourseBase } from 'Context';
+import { ICourseCardProps } from 'tsTypes';
 import { durationTransform } from 'helpers/pipeDuration';
 import { useAppDispatch } from 'redux/store';
 import { deleteCourseAction } from 'redux/store/courses/actionCreators';
 
-interface ICourseCardProps extends ICourseBase {
-	authors: string;
-}
+import s from './CourseCard.module.css';
 
 const CourseCard: FC<ICourseCardProps> = ({
 	id,

@@ -1,42 +1,12 @@
 import axios from 'axios';
 
-interface ISignUpUserReq {
-	name: string;
-	email: string;
-	password: string;
-}
-
-export interface ISignUpUserRes {
-	data: { successful: boolean; result: string };
-	status: number;
-	statusText: string;
-}
-
-export interface ILoginUserReq {
-	email: string;
-	password: string;
-}
-
-export interface IData {
-	successful: boolean;
-	result: string; //token
-	user: ILoginUserReq;
-}
-
-interface ILoginUserRes {
-	status: number;
-	data: IData;
-}
-
-interface ILogoutUserRes {
-	status: number;
-}
-
-export type SignUpUserFn = (user: ISignUpUserReq) => Promise<ISignUpUserRes>;
-
-export type LoginUserFn = (user: ILoginUserReq) => Promise<ILoginUserRes>;
-
-export type LogOutUserFn = (token: string) => Promise<ILogoutUserRes>;
+import {
+	ISignUpUserRes,
+	ILoginUserRes,
+	LogOutUserFn,
+	LoginUserFn,
+	SignUpUserFn,
+} from 'tsTypes';
 
 const instance = axios.create({
 	baseURL: 'http://localhost:4000',
