@@ -40,7 +40,7 @@ const CourseInfo = () => {
 					</p>
 					<p className={s.authors}>
 						<span>Authors:</span>
-						{convertAuthorsIdToNames(course?.authors, authors)}
+						{convertAuthorsIdToNames(course?.authorsId, authors)}
 					</p>
 				</div>
 			</div>

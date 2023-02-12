@@ -7,7 +7,7 @@ import {
 	updateCourseAction,
 } from './actionCreators';
 
-import { ICourse } from 'Context';
+import { ICourse } from 'tsTypes';
 
 const initialReducer: ICourse[] = [];
 

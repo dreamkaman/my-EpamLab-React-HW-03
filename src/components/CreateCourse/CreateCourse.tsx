@@ -32,8 +32,10 @@ const CreateCourse = () => {
 	const [restAuthors, setRestAuthors] = useState<IAuthor[]>([]);
 
 	useEffect(() => {
+		console.log('Ku!');
+
 		setRestAuthors(authors);
-	}, []);
+	}, [authors]);
 
 	const onChangeTitleHandle: React.ChangeEventHandler<HTMLInputElement> = (
 		e
@@ -73,9 +75,7 @@ const CreateCourse = () => {
 		const id: string = uuidV4();
 		const creationDate = new Date().toISOString();
 
-		const authors = getAuthorsIdArray(selectedAuthors);
-
-		console.log(id, creationDate, authors);
+		const authorsId = getAuthorsIdArray(selectedAuthors);
 
 		dispatch(
 			addNewCourseAction({
@@ -84,11 +84,12 @@ const CreateCourse = () => {
 				description,
 				creationDate,
 				duration,
-				authors,
+				authorsId,
 			})
 		);
 
 		setSelectedAuthors([]);
+		setRestAuthors(authors);
 		setTitle('');
 		setDescription('');
 		setDuration(0);

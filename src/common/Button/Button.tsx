@@ -1,16 +1,10 @@
 import { FC } from 'react';
 
+import { IButtonProps } from 'tsTypes';
+
 import sprite from 'images/svg/sprite.svg';
 
 import styles from './Button.module.css';
-
-interface IButtonProps {
-	id?: string;
-	btnText: string;
-	onClick?: React.MouseEventHandler<HTMLButtonElement>;
-	type?: 'button' | 'submit';
-	image?: string;
-}
 
 const Button: FC<IButtonProps> = ({
 	id = '#',
