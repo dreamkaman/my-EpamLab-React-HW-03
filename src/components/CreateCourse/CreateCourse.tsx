@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidV4 } from 'uuid';
 
@@ -18,17 +18,22 @@ import { addNewCourseAction } from 'redux/store/courses/actionCreators';
 import { addNewAuthorAction } from 'redux/store/authors/actionCreators';
 
 const CreateCourse = () => {
-	const [title, setTitle] = useState<string>('');
-	const [authorName, setAuthorName] = useState<string>(''); //state for the new author name input
-	const [duration, setDuration] = useState<number>(0);
-	const [description, setDescription] = useState<string>('');
-	const [selectedAuthors, setSelectedAuthors] = useState<IAuthor[]>([]);
-
 	const dispatch = useAppDispatch();
 
 	const authors = useAppSelector(getAllAuthorsSelector);
 
 	const navigate = useNavigate();
+
+	const [title, setTitle] = useState<string>('');
+	const [authorName, setAuthorName] = useState<string>(''); //state for the new author name input
+	const [duration, setDuration] = useState<number>(0);
+	const [description, setDescription] = useState<string>('');
+	const [selectedAuthors, setSelectedAuthors] = useState<IAuthor[]>([]);
+	const [restAuthors, setRestAuthors] = useState<IAuthor[]>([]);
+
+	useEffect(() => {
+		setRestAuthors(authors);
+	}, []);
 
 	const onChangeTitleHandle: React.ChangeEventHandler<HTMLInputElement> = (
 		e
@@ -103,17 +108,17 @@ const CreateCourse = () => {
 	};
 
 	const onAddAuthorClickHandle: React.MouseEventHandler<HTMLElement> = (e) => {
-		const selectedAuthor = authors.find(
+		const selectedAuthor = restAuthors.find(
 			(author) => author.id === e.currentTarget.id
 		);
 
 		setSelectedAuthors((prev) => [selectedAuthor, ...prev]);
 
-		const restAuthors = authors.filter(
+		const rest = restAuthors.filter(
 			(author) => author.id !== e.currentTarget.id
 		);
 
-		console.log(restAuthors);
+		setRestAuthors(rest);
 	};
 
 	const onDeleteAuthorClickHandle: React.MouseEventHandler<
@@ -127,7 +132,7 @@ const CreateCourse = () => {
 			const newState = prev.filter((author) => author.id !== deletedAuthorId);
 			return newState;
 		});
-		console.log(deletedAuthor);
+		setRestAuthors((prev) => [...prev, deletedAuthor]);
 	};
 
 	const onChangeDescriptionHandle: React.ChangeEventHandler<
@@ -194,9 +199,9 @@ const CreateCourse = () => {
 				<div className={s.rightSide}>
 					<div className={s.authorListBlock}>
 						<Title titleText='Authors' />
-						{!!authors.length && (
+						{!!restAuthors.length && (
 							<ul className={s.authorsList}>
-								{authors.map((author) => {
+								{restAuthors.map((author) => {
 									return (
 										<li key={author.id} className={s.authorListItem}>
 											{author.name}

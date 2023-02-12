@@ -30,7 +30,7 @@ const CourseCard: FC<ICourseCardProps> = ({
 	};
 
 	const onDeleteCourse = (e) => {
-		const id = e.target.id;
+		const id = e.currentTarget.id;
 		dispatch(deleteCourseAction(id));
 	};
 
