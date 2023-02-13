@@ -32,8 +32,6 @@ const CreateCourse = () => {
 	const [restAuthors, setRestAuthors] = useState<IAuthor[]>([]);
 
 	useEffect(() => {
-		console.log('Ku!');
-
 		setRestAuthors(authors);
 	}, [authors]);
 

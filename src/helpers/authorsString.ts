@@ -31,7 +31,7 @@ export const convertAuthorsIdToNames: convertAuthorsIdToNamesFn = (
 	authorsIdArray,
 	allAuthors = []
 ) => {
-	if (!allAuthors.length) return '';
+	if (!allAuthors.length || !authorsIdArray) return '';
 
 	const authorsName = authorsIdArray.map((authorId) => {
 		const foundAuthor = allAuthors.find((author) => author.id === authorId);

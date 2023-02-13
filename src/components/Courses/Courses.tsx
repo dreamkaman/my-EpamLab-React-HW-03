@@ -12,13 +12,14 @@ import { dateTransform } from 'helpers/dateGenerator';
 import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
 
 import s from './Courses.module.css';
+import { ICourse } from 'tsTypes';
 
 const Courses = () => {
 	const navigate = useNavigate();
 
 	const authors = useAppSelector(getAllAuthorsSelector);
 
-	const [filteredCourses, setFilteredCourses] = useState([]);
+	const [filteredCourses, setFilteredCourses] = useState<ICourse[]>([]);
 
 	const onAddNewCourseClick = () => {
 		navigate('/courses/add');
@@ -34,7 +35,6 @@ const Courses = () => {
 				<Button btnText='Add new course' onClick={onAddNewCourseClick} />
 			</div>
 
-			{/* {!!authors.length && ( */}
 			<ul>
 				{filteredCourses?.map((course) => {
 					return (
@@ -43,7 +43,7 @@ const Courses = () => {
 							key={course.id}
 							title={course.title}
 							description={course.description}
-							authors={convertAuthorsIdToNames(course.authors, authors)}
+							authors={convertAuthorsIdToNames(course.authorsId, authors)}
 							duration={course.duration}
 							creationDate={dateTransform(course.creationDate)}
 						/>
