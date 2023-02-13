@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import Button from 'common/Button';
@@ -25,7 +25,7 @@ const CourseCard: FC<ICourseCardProps> = ({
 		navigate(`/courses/${id}`);
 	};
 
-	const onDeleteCourse = (e) => {
+	const onDeleteCourse: MouseEventHandler<HTMLButtonElement> = (e) => {
 		const id = e.currentTarget.id;
 		dispatch(deleteCourseAction(id));
 	};

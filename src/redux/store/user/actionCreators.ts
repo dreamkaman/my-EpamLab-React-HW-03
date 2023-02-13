@@ -7,7 +7,7 @@ import {
 	CLEAR_USER_DATA,
 } from './actionTypes';
 
-import { IReqUser } from 'components/Login/Login';
+import { IReqUser } from 'tsTypes';
 import { IUserLoginPayload } from './reducer';
 
 export const userLoginAction = createAction<IReqUser, 'USER_LOGIN'>(USER_LOGIN);

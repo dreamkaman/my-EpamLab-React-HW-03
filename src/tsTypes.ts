@@ -1,5 +1,7 @@
 import { ChangeEvent, ReactElement } from 'react';
 
+import { IAuthor } from 'helpers/authorsString';
+
 export interface ICourseBase {
 	id: string;
 	title: string;
@@ -81,4 +83,23 @@ export interface ITitleProps {
 
 export interface ICourseCardProps extends ICourseBase {
 	authors: string;
+}
+
+export interface ISearchBarProps {
+	filteredCourses: ICourse[];
+	setFilteredCourses: React.Dispatch<React.SetStateAction<ICourse[]>>;
+}
+
+export interface ISelectedAuthorsListProps {
+	selectedAuthors: IAuthor[];
+	onClick: React.MouseEventHandler<HTMLButtonElement>;
+}
+
+export interface ILogoOutProps {
+	userName?: string;
+}
+
+export interface IReqUser {
+	email: string;
+	password: string;
 }

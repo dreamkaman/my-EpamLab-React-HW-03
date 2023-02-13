@@ -11,8 +11,9 @@ import { dateTransform } from 'helpers/dateGenerator';
 
 import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
 
-import s from './Courses.module.css';
 import { ICourse } from 'tsTypes';
+
+import s from './Courses.module.css';
 
 const Courses = () => {
 	const navigate = useNavigate();
