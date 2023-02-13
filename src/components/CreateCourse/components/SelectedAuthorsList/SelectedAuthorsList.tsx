@@ -2,14 +2,9 @@ import { FC } from 'react';
 
 import Button from 'common/Button';
 
-import { IAuthor } from 'helpers/authorsString';
+import { ISelectedAuthorsListProps } from 'tsTypes';
 
 import s from './SelectedAuthorsList.module.css';
-
-interface ISelectedAuthorsListProps {
-	selectedAuthors: IAuthor[];
-	onClick: React.MouseEventHandler<HTMLButtonElement>;
-}
 
 const SelectedAuthorsList: FC<ISelectedAuthorsListProps> = ({
 	selectedAuthors,

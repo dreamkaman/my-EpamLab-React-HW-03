@@ -15,5 +15,7 @@ export const clearAllCoursesAction = createAction(CLEAR_COURSES);
 export const addNewCourseAction = createAction<ICourse, 'ADD_COURSE'>(
 	ADD_COURSE
 );
-export const deleteCourseAction = createAction(DELETE_COURSE);
+export const deleteCourseAction = createAction<string, 'DELETE_COURSE'>(
+	DELETE_COURSE
+);
 export const updateCourseAction = createAction(UPDATE_COURSE);

@@ -13,12 +13,9 @@ import {
 	getIsAuthSelector,
 } from 'redux/store/user/selectors';
 
-import s from './Login.module.css';
+import { IReqUser } from 'tsTypes';
 
-export interface IReqUser {
-	email: string;
-	password: string;
-}
+import s from './Login.module.css';
 
 const Login = () => {
 	const navigate = useNavigate();

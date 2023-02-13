@@ -10,12 +10,13 @@ import SelectedAuthorsList from './components/SelectedAuthorsList';
 import { durationTransform } from 'helpers/pipeDuration';
 import { IAuthor, getAuthorsIdArray } from 'helpers/authorsString';
 
-import s from './CreateCourse.module.css';
 import { useAppSelector } from 'redux/hooks';
 import { getAllAuthorsSelector } from 'redux/store/authors/selectors';
 import { useAppDispatch } from 'redux/store';
 import { addNewCourseAction } from 'redux/store/courses/actionCreators';
 import { addNewAuthorAction } from 'redux/store/authors/actionCreators';
+
+import s from './CreateCourse.module.css';
 
 const CreateCourse = () => {
 	const dispatch = useAppDispatch();
@@ -32,8 +33,6 @@ const CreateCourse = () => {
 	const [restAuthors, setRestAuthors] = useState<IAuthor[]>([]);
 
 	useEffect(() => {
-		console.log('Ku!');
-
 		setRestAuthors(authors);
 	}, [authors]);
 

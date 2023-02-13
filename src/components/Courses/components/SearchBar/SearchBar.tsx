@@ -1,17 +1,21 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import Input from 'common/Input';
 import Button from 'common/Button';
-
-import s from './SearchBar.module.css';
 
 import { useAppSelector } from 'redux/hooks';
 import { getAllCoursesSelector } from 'redux/store/courses/selectors';
 import { useAppDispatch } from 'redux/store';
 import { getAllCoursesAction } from 'redux/store/courses/actionCreators';
 import { getAllAuthorsAction } from 'redux/store/authors/actionCreators';
+import { ISearchBarProps } from 'tsTypes';
 
-const SearchBar = ({ filteredCourses, setFilteredCourses }) => {
+import s from './SearchBar.module.css';
+
+const SearchBar: FC<ISearchBarProps> = ({
+	filteredCourses,
+	setFilteredCourses,
+}) => {
 	const [filter, setFilter] = useState('');
 
 	const courses = useAppSelector(getAllCoursesSelector);

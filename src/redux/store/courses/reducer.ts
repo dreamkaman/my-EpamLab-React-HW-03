@@ -22,8 +22,6 @@ export const coursesReducer = createReducer(initialReducer, {
 		return [...state, action.payload];
 	},
 	[deleteCourseAction.type]: (state, action) => {
-		console.log('Action delete works!');
-
 		const filteredCourses = state.filter(
 			(course) => course.id !== action.payload //in this case we pass only id as payload
 		);
